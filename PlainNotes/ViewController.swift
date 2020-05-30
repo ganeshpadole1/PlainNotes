@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         self.title = "Notes"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         tableView.dataSource = self
+        tableView.delegate = self
         
         createRightButton()
         self.navigationItem.leftBarButtonItem = editButtonItem
@@ -94,4 +95,10 @@ extension ViewController: UITableViewDataSource {
         saveNote()
     }
     
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(data[indexPath.row])")
+    }
 }
