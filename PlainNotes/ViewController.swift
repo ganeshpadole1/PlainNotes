@@ -18,6 +18,16 @@ class ViewController: UIViewController {
         self.title = "Notes"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         tableView.dataSource = self
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc func addNote() {
+        let note = "Item \(data.count + 1)"
+        data.insert(note, at: 0)
+        let indexPath: IndexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
 }
 
