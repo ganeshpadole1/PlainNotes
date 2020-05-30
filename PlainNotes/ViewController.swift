@@ -29,6 +29,11 @@ class ViewController: UIViewController {
     }
     
     @objc func addNote() {
+        
+        if tableView.isEditing {
+            return
+        }
+        
         let note = "Item \(data.count + 1)"
         data.insert(note, at: 0)
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
