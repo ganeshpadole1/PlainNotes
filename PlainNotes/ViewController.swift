@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var data = ["Item 1","Item 2","Item 3"]
+    var data = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,11 @@ class ViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = editButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loaNotes()
+    }
     func createRightButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
@@ -38,6 +43,18 @@ class ViewController: UIViewController {
         data.insert(note, at: 0)
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+        saveNote()
+    }
+    
+    func saveNote() {
+        UserDefaults.standard.set(data, forKey: "notes")
+    }
+    
+    func loaNotes() {
+        if let loadedNotes = UserDefaults.standard.value(forKey: "notes") as? [String] {
+            data = loadedNotes
+            tableView.reloadData()
+        }
     }
 }
 
@@ -63,6 +80,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         data.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
+        saveNote()
     }
     
 }
