@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        self.title = "Notes"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         tableView.dataSource = self
     }
 }
