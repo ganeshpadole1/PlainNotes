@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var data = [String]()
     var fileURL: URL!
+    var selectedRow = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class ViewController: UIViewController {
         let note = "Item \(data.count + 1)"
         data.insert(note, at: 0)
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         tableView.insertRows(at: [indexPath], with: .automatic)
         self.performSegue(withIdentifier: "DetailViewController", sender: nil)
     }
@@ -99,6 +101,13 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "AddNoteViewController", sender: nil)
+        self.performSegue(withIdentifier: "DetailViewController", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let detailVC = segue.destination as? DetailViewController
+        selectedRow = tableView.indexPathForSelectedRow!.row
+        detailVC?.setText(t: data[selectedRow])
     }
 }
