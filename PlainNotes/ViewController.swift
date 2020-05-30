@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         data.insert(note, at: 0)
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        saveNote()
+        self.performSegue(withIdentifier: "DetailViewController", sender: nil)
     }
     
     func saveNote() {
@@ -99,6 +99,6 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(data[indexPath.row])")
+        self.performSegue(withIdentifier: "AddNoteViewController", sender: nil)
     }
 }

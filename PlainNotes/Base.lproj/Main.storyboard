@@ -42,11 +42,49 @@
                     <navigationItem key="navigationItem" id="NSK-LM-5vH"/>
                     <connections>
                         <outlet property="tableView" destination="fgs-fN-rAz" id="foA-wS-MEU"/>
+                        <segue destination="ATX-NK-ddj" kind="show" identifier="DetailViewController" id="G08-GM-jdO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="82.366071428571431"/>
+        </scene>
+        <!--Note-->
+        <scene sceneID="gZQ-OB-Xox">
+            <objects>
+                <viewController title="Note" id="ATX-NK-ddj" customClass="DetailViewController" customModule="PlainNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ynD-3H-aMK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IUr-KK-myN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ATX-NK-ddj" id="423-qg-KeT"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="IUr-KK-myN" firstAttribute="leading" secondItem="49C-c2-lCu" secondAttribute="leading" id="OQI-jU-lAo"/>
+                            <constraint firstItem="IUr-KK-myN" firstAttribute="top" secondItem="49C-c2-lCu" secondAttribute="top" id="Oxa-rl-AqT"/>
+                            <constraint firstItem="IUr-KK-myN" firstAttribute="centerX" secondItem="ynD-3H-aMK" secondAttribute="centerX" id="XuO-K3-Q2N"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="IUr-KK-myN" secondAttribute="bottom" constant="-34" id="fa8-7T-IB5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="49C-c2-lCu"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Note" id="5Fo-U8-jku"/>
+                    <connections>
+                        <outlet property="textView" destination="IUr-KK-myN" id="lyh-8x-cHW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sn0-c0-p9x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976.8115942028987" y="37.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5J6-Mg-DLK">
