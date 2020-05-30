@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var data = [String]()
+    var fileURL: URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,9 @@ class ViewController: UIViewController {
         
         createRightButton()
         self.navigationItem.leftBarButtonItem = editButtonItem
+        
+        let baseURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        fileURL = baseURL.appendingPathComponent("notes.txt")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,11 +51,18 @@ class ViewController: UIViewController {
     }
     
     func saveNote() {
-        UserDefaults.standard.set(data, forKey: "notes")
+        //UserDefaults.standard.set(data, forKey: "notes")
+        
+        let noteArray = NSArray(array: data)
+        do {
+            try noteArray.write(to: fileURL)
+        } catch  {
+            print("error while saving data to file")
+        }
     }
     
     func loaNotes() {
-        if let loadedNotes = UserDefaults.standard.value(forKey: "notes") as? [String] {
+        if let loadedNotes = NSArray(contentsOf: fileURL) as? [String] {
             data = loadedNotes
             tableView.reloadData()
         }
