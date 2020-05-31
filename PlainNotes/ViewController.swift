@@ -20,6 +20,7 @@ class ViewController: UIViewController {
        
         self.title = "Notes"
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         tableView.dataSource = self
         tableView.delegate = self
         
