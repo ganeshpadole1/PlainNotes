@@ -12,11 +12,25 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     var text = ""
+    var masterView: ViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         textView.text = text
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        textView.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        masterView.newRowText = textView.text
+        textView.resignFirstResponder()
     }
     
     func setText(t: String) {

@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var data = [String]()
     var fileURL: URL!
     var selectedRow = -1
+    var newRowText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +28,22 @@ class ViewController: UIViewController {
         
         let baseURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         fileURL = baseURL.appendingPathComponent("notes.txt")
+        loaNotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loaNotes()
+        if selectedRow == -1 {
+            return
+        }
+        
+        data[selectedRow] = newRowText
+        if newRowText == "" {
+            data.remove(at: selectedRow)
+        }
+        tableView.reloadData()
+        saveNote()
     }
     func createRightButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
@@ -45,11 +56,11 @@ class ViewController: UIViewController {
             return
         }
         
-        let note = "Item \(data.count + 1)"
+        let note = ""
         data.insert(note, at: 0)
         let indexPath: IndexPath = IndexPath(row: 0, section: 0)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         self.performSegue(withIdentifier: "DetailViewController", sender: nil)
     }
     
@@ -105,9 +116,9 @@ extension ViewController: UITableViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let detailVC = segue.destination as? DetailViewController
         selectedRow = tableView.indexPathForSelectedRow!.row
+        detailVC?.masterView = self
         detailVC?.setText(t: data[selectedRow])
     }
 }
